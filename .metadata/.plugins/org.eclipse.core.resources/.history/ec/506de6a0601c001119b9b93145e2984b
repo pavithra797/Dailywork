@@ -1,0 +1,13 @@
+package basics;
+
+public class Book {
+	String title;
+	boolean available;
+	int price;
+
+	Book(String title) {
+		this.title = title;
+		this.available = true;
+		
+	}
+}

@@ -1,0 +1,30 @@
+package basics;
+
+import java.util.Date;
+public class Car {
+	private String model; // enum //immutable, only getter
+	private String color;
+	private float price;//mutable,getter+setter
+	private Engine engine; //Has-A
+	private String fuleType;
+	String number;
+	boolean insured;
+	String transmission;
+	int seats;
+	float weight;
+	String designe;
+	float mileage;
+	String brand;
+	boolean ev;
+	Date manufacturigDate;
+	List<Wheel> wheels;
+	
+	
+	
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}
