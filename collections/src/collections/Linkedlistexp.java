@@ -24,6 +24,6 @@ public static void main(String[] args) {
 
 		LinkedList<String> linkedList = ((LinkedList) cities); // downcasting
 		linkedList.addFirst("chennai");
+		return linkedList;
 	}
-}
 }
