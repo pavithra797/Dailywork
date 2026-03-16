@@ -1,24 +1,28 @@
 package lms;
-
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Menu {
+
+	private static final Logger logger = Logger.getLogger(Menu.class.getName());
 
 	static Scanner sc = new Scanner(System.in);
 	static Library library = new Library();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws BookNotAvailableException {
 
 		while (true) {
 
-			System.out.println("\n---- Book Management ----");
-			System.out.println("1. Add Book");
-			System.out.println("2. Remove Book");
-			System.out.println("3. Reserve Book");
-			System.out.println("4. Show Books");
-			System.out.println("5. Exit");
-			System.out.print("Enter choice: ");
+			logger.info("""
+					\n---- Book Management ----
+					1. Add Book
+					2. Remove Book
+					3. Reserve Book
+					4. Show Books
+					5. Exit
+					""");
 
+			logger.info("Enter choice: ");
 			int choice = sc.nextInt();
 
 			switch (choice) {
@@ -36,41 +40,44 @@ public class Menu {
 				break;
 
 			case 4:
-				System.out.println("Program ended.");
-				return; // exits main method
+				library.showBooks();
+				break;
+
+			case 5:
+				logger.info("Program ended.");
+				return;
 
 			default:
-				System.out.println("Invalid choice");
+				logger.info("Invalid choice");
 			}
 		}
 	}
-
 	static void handleAdd() {
 
-		System.out.print("Enter Book ID: ");
+		logger.info("Enter Book ID: ");
 		int id = sc.nextInt();
 		sc.nextLine();
 
-		System.out.print("Enter Title: ");
+		logger.info("Enter Title: ");
 		String title = sc.nextLine();
 
-		System.out.print("Enter Author: ");
+		logger.info("Enter Author: ");
 		String author = sc.nextLine();
 
-		System.out.print("Enter Price: ");
+		logger.info("Enter Price: ");
 		double price = sc.nextDouble();
 
 		library.addBook(new Book(id, title, price, author));
 	}
 
 	static void handleRemove() {
-		System.out.print("Enter Book ID to remove: ");
+		logger.info("Enter Book ID to remove: ");
 		int id = sc.nextInt();
 		library.removeBook(id);
 	}
 
-	static void handleReserve() {
-		System.out.print("Enter Book ID to reserve: ");
+	static void handleReserve() throws BookNotAvailableException {
+		logger.info("Enter Book ID to reserve: ");
 		int id = sc.nextInt();
 		library.reserveBook(id);
 	}

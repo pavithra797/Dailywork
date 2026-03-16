@@ -26,5 +26,8 @@ public class Book {
 				---------------------------
 				""".formatted(id, title, author, price);
 	}
+	 public String toCSV() {
+	        return String.format("%d,%s,%s,%.2f", id, title, author, price);
+	    }
 
 }

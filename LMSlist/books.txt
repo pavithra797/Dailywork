@@ -1,0 +1,3 @@
+2|java|jems|200.00|false
+5|c|charl|400.00|true
+6,c++,shes,230.00,false
