@@ -1,0 +1,87 @@
+package log.analyzer;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class LogAnalyzerTest {
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+	private final PrintStream originalOut = System.out;
+	private final PrintStream originalErr = System.err;
+
+	@BeforeEach
+	void setUpStreams() {
+		System.setOut(new PrintStream(outContent));
+		System.setErr(new PrintStream(errContent));
+	}
+
+	@AfterEach
+	void restoreStreams() {
+		System.setOut(originalOut);
+		System.setErr(originalErr);
+	}
+
+	private File createTempLogFile(String content) throws IOException {
+		File tempFile = File.createTempFile("system", ".log");
+		tempFile.deleteOnExit();
+		try (PrintWriter writer = new PrintWriter(new FileWriter(tempFile))) {
+			writer.print(content);
+		}
+		return tempFile;
+	}
+
+	@Test
+	void testNormalLogFile() throws IOException {
+		String logs = "INFO: Start\nERROR: DB failed\nWARNING: Low memory\nERROR: Disk full\nINFO: Connection established\n";
+		File file = createTempLogFile(logs);
+
+		LogAnalyzer.main(new String[] { file.getAbsolutePath() });
+		String output = outContent.toString().trim();
+
+		assertTrue(output.contains("INFO: 2"));
+		assertTrue(output.contains("WARNING: 1"));
+		assertTrue(output.contains("ERROR: 2"));
+	}
+
+	@Test
+	void testEmptyLogFile() throws IOException {
+		File file = createTempLogFile("");
+		LogAnalyzer.main(new String[] { file.getAbsolutePath() });
+		String output = outContent.toString().trim();
+
+		assertTrue(output.contains("INFO: 0"));
+		assertTrue(output.contains("WARNING: 0"));
+		assertTrue(output.contains("ERROR: 0"));
+	}
+
+	@Test
+	void testOnlyErrorLogs() throws IOException {
+		String logs = "ERROR: Disk full\nERROR: DB failed\nERROR: Network down\n";
+		File file = createTempLogFile(logs);
+		LogAnalyzer.main(new String[] { file.getAbsolutePath() });
+		String output = outContent.toString().trim();
+
+		assertTrue(output.contains("INFO: 0"));
+		assertTrue(output.contains("WARNING: 0"));
+		assertTrue(output.contains("ERROR: 3"));
+	}
+
+	@Test
+	void testFileNotFound() {
+		String nonExistentFile = "nonexistent.log";
+		LogAnalyzer.main(new String[] { nonExistentFile });
+		String errorOutput = errContent.toString().trim();
+
+		assertTrue(errorOutput.contains("Error: File " + nonExistentFile + " not found."));
+	}
+}

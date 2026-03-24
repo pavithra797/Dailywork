@@ -1,0 +1,38 @@
+package log.analyzer;
+
+import java.io.*;
+import java.util.*;
+
+public class LogAnalyzer {
+
+    public static void main(String[] args) {
+        String fileName = "system.log"; // default file
+        if (args.length > 0) {
+            fileName = args[0]; // use the file passed from test or command line
+        }
+
+        Map<String, Integer> logCounts = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.startsWith("INFO")) {
+                    logCounts.put("INFO", logCounts.getOrDefault("INFO", 0) + 1);
+                } else if (line.startsWith("WARNING")) {
+                    logCounts.put("WARNING", logCounts.getOrDefault("WARNING", 0) + 1);
+                } else if (line.startsWith("ERROR")) {
+                    logCounts.put("ERROR", logCounts.getOrDefault("ERROR", 0) + 1);
+                }
+            }
+
+            for (String key : Arrays.asList("INFO", "WARNING", "ERROR")) {
+                System.out.println(key + ": " + logCounts.getOrDefault(key, 0));
+            }
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: File " + fileName + " not found.");
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+    }
+}

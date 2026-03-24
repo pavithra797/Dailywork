@@ -1,0 +1,47 @@
+package log.analyzer;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+import java.io.*;
+
+class LogAnalyzerTest {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @BeforeEach
+    void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @AfterEach
+    void restoreStreams() {
+        System.setOut(originalOut);
+    }
+
+    // Utility method to create a temporary log file
+    private File createTempLogFile(String content) throws IOException {
+        File tempFile = File.createTempFile("system", ".log");
+        tempFile.deleteOnExit();
+        try (PrintWriter writer = new PrintWriter(new FileWriter(tempFile))) {
+            writer.print(content);
+        }
+        return tempFile;
+    }
+
+    @Test
+    void testNormalLogFile() throws IOException {
+        String logs = "INFO: Start\nERROR: DB failed\nWARNING: Low memory\nERROR: Disk full\nINFO: Connection established\n";
+        File file = createTempLogFile(logs);
+
+        // Call the main method of LogAnalyzer with file path as argument
+        LogAnalyzer.main(new String[] { file.getAbsolutePath() });
+
+        String output = outContent.toString().trim();
+
+        assertTrue(output.contains("INFO: 2"));
+        assertTrue(output.contains("WARNING: 1"));
+        assertTrue(output.contains("ERROR: 2"));
+    }
+}

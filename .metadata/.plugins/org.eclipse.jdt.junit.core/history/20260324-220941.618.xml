@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="LogAnalyzerTest" project="log.analyzer" tests="5" started="5" failures="3" errors="0" ignored="0">
+  <testsuite name="log.analyzer.LogAnalyzerTest" time="0.223" displayname="LogAnalyzerTest" uniqueid="[engine:junit-jupiter]/[class:log.analyzer.LogAnalyzerTest]">
+    <testcase name="testNoMatchingLogs" classname="log.analyzer.LogAnalyzerTest" time="0.173" displayname="testNoMatchingLogs()" uniqueid="[engine:junit-jupiter]/[class:log.analyzer.LogAnalyzerTest]/[method:testNoMatchingLogs()]">
+      <failure>
+        <expected>true</expected>
+        <actual>false</actual>
+        org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)&#13;
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)&#13;
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)&#13;
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)&#13;
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)&#13;
+	at log.analyzer.LogAnalyzerTest.testNoMatchingLogs(LogAnalyzerTest.java:79)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+    <testcase name="testSingleLogType" classname="log.analyzer.LogAnalyzerTest" time="0.012" displayname="testSingleLogType()" uniqueid="[engine:junit-jupiter]/[class:log.analyzer.LogAnalyzerTest]/[method:testSingleLogType()]">
+      <failure>
+        <expected>true</expected>
+        <actual>false</actual>
+        org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)&#13;
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)&#13;
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)&#13;
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)&#13;
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)&#13;
+	at log.analyzer.LogAnalyzerTest.testSingleLogType(LogAnalyzerTest.java:61)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+    <testcase name="testIOException" classname="log.analyzer.LogAnalyzerTest" time="0.006" displayname="testIOException()" uniqueid="[engine:junit-jupiter]/[class:log.analyzer.LogAnalyzerTest]/[method:testIOException()]"/>
+    <testcase name="testFileNotFound" classname="log.analyzer.LogAnalyzerTest" time="0.019" displayname="testFileNotFound()" uniqueid="[engine:junit-jupiter]/[class:log.analyzer.LogAnalyzerTest]/[method:testFileNotFound()]"/>
+    <testcase name="testAllLogTypes" classname="log.analyzer.LogAnalyzerTest" time="0.007" displayname="testAllLogTypes()" uniqueid="[engine:junit-jupiter]/[class:log.analyzer.LogAnalyzerTest]/[method:testAllLogTypes()]">
+      <failure>
+        <expected>true</expected>
+        <actual>false</actual>
+        org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)&#13;
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)&#13;
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)&#13;
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)&#13;
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)&#13;
+	at log.analyzer.LogAnalyzerTest.testAllLogTypes(LogAnalyzerTest.java:43)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+  </testsuite>
+</testrun>

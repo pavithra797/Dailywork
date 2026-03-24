@@ -1,0 +1,33 @@
+package log.analyzer;
+
+import org.junit.jupiter.api.Test;
+import java.io.*;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class LogAnalyzerTest {
+
+    @Test
+    void testCountLogs() throws IOException {
+        String logs = String.join("\n",
+                "INFO Application started",
+                "WARNING Low memory",
+                "ERROR Null pointer exception",
+                "INFO User logged in",
+                "ERROR File not found"
+        );
+
+        // Use StringReader to simulate file input
+        BufferedReader reader = new BufferedReader(new StringReader(logs));
+        Map<String, Integer> result = LogAnalyzer.countLogs(reader);
+
+        // Expected counts
+        Map<String, Integer> expected = new HashMap<>();
+        expected.put("INFO", 2);
+        expected.put("WARNING", 1);
+        expected.put("ERROR", 2);
+
+        assertEquals(expected, result);
+    }
+}

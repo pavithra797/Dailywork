@@ -1,0 +1,5 @@
+package log.analyzer;
+
+public class LogAnalyzerTest {
+
+}

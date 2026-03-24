@@ -1,0 +1,76 @@
+package log.analyzer;
+
+import org.junit.jupiter.api.*;
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class LogAnalyzerTest {
+	private final PrintStream originalOut = System.out;
+	private final PrintStream originalErr = System.err;
+	private ByteArrayOutputStream outContent;
+	private ByteArrayOutputStream errContent;
+
+	@BeforeEach
+	void setUpStreams() {
+		outContent = new ByteArrayOutputStream();
+		errContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+		System.setErr(new PrintStream(errContent));
+	}
+
+	@AfterEach
+	void restoreStreams() {
+		System.setOut(originalOut);
+		System.setErr(originalErr);
+	}
+	@Test
+	void testFileNotFound() {
+		Path path = Paths.get("system.log");
+		try {
+			Files.deleteIfExists(path);
+		} catch (IOException ignored) {
+		}
+
+		LogAnalyzer.main(new String[] {});
+
+		String errOutput = errContent.toString().trim();
+		assertTrue(errOutput.contains("Error: File system.log not found."));
+	}
+
+	@Test
+	void testIOException() {
+		LogAnalyzerWithIOException.main(new String[] {});
+
+		String errOutput = errContent.toString().trim();
+		assertTrue(errOutput.contains("Error reading the file"));
+	}
+
+	static class LogAnalyzerWithIOException extends LogAnalyzer {
+		public static void main(String[] args) {
+			Map<String, Integer> logCounts = new HashMap<>();
+			String fileName = "system.log";
+
+			try (BufferedReader br = new BufferedReader(new Reader() {
+				@Override
+				public int read(char[] cbuf, int off, int len) throws IOException {
+					throw new IOException("Simulated read error");
+				}
+
+				@Override
+				public void close() throws IOException {
+				}
+			})) {
+				String line;
+				while ((line = br.readLine()) != null) {
+				}
+			} catch (FileNotFoundException e) {
+				System.err.println("Error: File " + fileName + " not found.");
+			} catch (IOException e) {
+				System.err.println("Error reading the file: " + e.getMessage());
+			}
+		}
+	}
+}
