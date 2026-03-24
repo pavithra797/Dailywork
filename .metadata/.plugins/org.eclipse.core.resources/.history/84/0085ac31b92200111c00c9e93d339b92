@@ -1,0 +1,70 @@
+package lms;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class LibraryTest {
+
+	Library library;
+
+	@BeforeEach
+	void setUp() {
+		library = new Library();
+		library.books.clear();
+	}
+
+	// Test 1: Book title is null → should throw IllegalArgumentException
+	@Test
+	void testReserveIfTitleIsNull() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			Book book = new Book(1, null, 100.0, "Pavithra");
+			library.addBook(book); // will not be added because constructor throws
+		});
+	}
+
+	// Test 2: Book title is blank → should throw IllegalArgumentException
+	@Test
+	void testReserveIfTitleIsBlank() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			Book book = new Book(2, "", 150.0, "Pavithra");
+			library.addBook(book);
+		});
+	}
+
+	// Test 3: Book title contains only whitespace → should throw
+	// IllegalArgumentException
+	@Test
+	void testReserveIfTitleIsWhitespace() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			Book book = new Book(3, "   ", 200.0, "Pavithra");
+			library.addBook(book);
+		});
+	}
+
+	// Test 4: Successful reservation
+	@Test
+	void testSuccessfulReservation() throws BookNotAvailableException {
+		Book book = new Book(1, "Learn Java", 100.1, "Pavithra");
+		library.addBook(book);
+
+		library.reserveBook(1); // reserve by ID
+
+		assertTrue(book.reserved, "Book should be marked as reserved");
+	}
+
+	// Test 5: Reserve already reserved book → should throw exception
+	@Test
+	void testReserveAlreadyReservedBook() throws BookNotAvailableException {
+		Book book = new Book(1, "Learn Java", 100.1, "Pavithra");
+		library.addBook(book);
+
+		library.reserveBook(1); // first reservation
+		BookNotAvailableException exception = assertThrows(BookNotAvailableException.class, () -> {
+			library.reserveBook(1); // second reservation should fail
+		});
+
+		assertEquals("Book is not available: Learn Java", exception.getMessage());
+	}
+}

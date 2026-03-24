@@ -1,0 +1,55 @@
+package banking.test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.*;
+
+import Repository.AccountRepository;
+import banking.model.Account;
+import banking.service.BankService;
+
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BankServiceTest {
+
+
+
+    @Mock
+    private AccountRepository repository;
+
+    @InjectMocks
+    private BankService bankService;
+
+    private Account account;
+
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.openMocks(this);
+        account = new Account(1, "Amit", 1000);
+    }
+
+    @Test
+    void testDeposit() {
+
+        when(repository.findById(1)).thenReturn(account);//mocking
+
+        bankService.deposit(1, 500);
+
+        assertEquals(1500, account.getBalance());
+
+        verify(repository).save(account);
+    }
+
+    @Test
+    void testWithdrawInsufficientBalance() {
+
+        when(repository.findById(1)).thenReturn(account);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                bankService.withdraw(1, 2000)
+        );
+
+        verify(repository, never()).save(any());
+    }
+}

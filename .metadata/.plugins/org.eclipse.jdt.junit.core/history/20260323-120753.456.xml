@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="BankServiceTest" project="banking.app" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="banking.Test.BankServiceTest" time="0.059" displayname="BankServiceTest" uniqueid="[engine:junit-vintage]/[runner:banking.Test.BankServiceTest]">
+    <testcase name="banking.Test.BankServiceTest" classname="banking.Test.BankServiceTest" time="0.059" displayname="initializationError" uniqueid="[engine:junit-vintage]/[runner:banking.Test.BankServiceTest]/[test:initializationError(banking.Test.BankServiceTest)]">
+      <error>org.junit.runners.model.InvalidTestClassError: Invalid test class 'banking.Test.BankServiceTest':
+  1. Method testInsufficientBalance() should be public
+  2. Method testWithdraw() should be public
+  3. Method testDuplicateAccount() should be public
+  4. Method testDeposit() should be public&#13;
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)&#13;
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1602)&#13;
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)&#13;
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)&#13;
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)&#13;
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)&#13;
+	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)&#13;
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)&#13;
+	at java.base/java.util.stream.ReferencePipeline.findFirst(ReferencePipeline.java:647)&#13;
+&#13;
+</error>
+    </testcase>
+  </testsuite>
+</testrun>

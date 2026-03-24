@@ -1,0 +1,51 @@
+package banking.service;
+
+import Repository.AccountRepository;
+import banking.exception.BankingException;
+import banking.model.Account;
+
+public class BankService {
+    private final AccountRepository repository;
+
+    public BankService(AccountRepository repository) {
+        this.repository = repository;
+    }
+
+    // Deposit money into account
+    public void deposit(int accountNumber, double amount) {
+        Account account = repository.findById(accountNumber);
+        if (account == null) {
+            throw new BankingException("Account not found");
+        }
+        account.deposit(amount);
+        repository.save(account);
+    }
+
+    // Withdraw money from account
+    public void withdraw(int accountNumber, double amount) {
+        Account account = repository.findById(accountNumber);
+        if (account == null) {
+            throw new BankingException("Account not found");
+        }
+        account.withdraw(amount);
+        repository.save(account);
+    }
+
+    // Create a new account
+    public void createAccount(int id, String name, double bal) {
+        if (repository.findById(id) != null) {
+            throw new BankingException("Account already exists");
+        }
+        Account account = new Account(id, name, bal);
+        repository.save(account);
+    }
+
+    // Get an account by account number
+    public Account getAccount(int accountNumber) {
+        Account account = repository.findById(accountNumber);
+        if (account == null) {
+            throw new BankingException("Account not found");
+        }
+        return account;
+    }
+}

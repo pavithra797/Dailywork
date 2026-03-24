@@ -1,0 +1,28 @@
+package lms;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class LibraryTest {
+	 @BeforeEach
+	    void setUp() {
+	        Library library = new Library();
+	}
+	 @Test
+	    void testReserveIfTitleIsNull() {
+	        assertThrows(IllegalArgumentException.class, () -> {
+	            Book book = new Book(1, null, 100.0, "Pavithra");
+	        });
+	}
+	@Test
+	void testSuccessfulReservation() {
+		Book book = new Book("1","Learn Java",100.1f,"pavithra");
+		Library books.add(book);
+		Library.reserveBook("learn java");
+		assertEquals(STATUS.BOOKED,book.getStatus());
+	}
+
+
+}

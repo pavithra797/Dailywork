@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="BankServiceTest (1)" project="banking.app" tests="7" started="7" failures="0" errors="0" ignored="0">
+  <testsuite name="banking.test.BankServiceTest" time="1.419" displayname="BankServiceTest" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]">
+    <testcase name="testCreateAccount" classname="banking.test.BankServiceTest" time="1.381" displayname="testCreateAccount()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testCreateAccount()]"/>
+    <testcase name="testGetAccount" classname="banking.test.BankServiceTest" time="0.011" displayname="testGetAccount()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testGetAccount()]"/>
+    <testcase name="testCreateDuplicateAccount" classname="banking.test.BankServiceTest" time="0.006" displayname="testCreateDuplicateAccount()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testCreateDuplicateAccount()]"/>
+    <testcase name="testWithdraw" classname="banking.test.BankServiceTest" time="0.004" displayname="testWithdraw()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testWithdraw()]"/>
+    <testcase name="testGetNonExistingAccount" classname="banking.test.BankServiceTest" time="0.004" displayname="testGetNonExistingAccount()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testGetNonExistingAccount()]"/>
+    <testcase name="testDeposit" classname="banking.test.BankServiceTest" time="0.003" displayname="testDeposit()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testDeposit()]"/>
+    <testcase name="testMultipleDepositsAndWithdrawals" classname="banking.test.BankServiceTest" time="0.004" displayname="testMultipleDepositsAndWithdrawals()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testMultipleDepositsAndWithdrawals()]"/>
+  </testsuite>
+</testrun>
