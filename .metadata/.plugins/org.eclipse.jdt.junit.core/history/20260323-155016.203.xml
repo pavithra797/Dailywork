@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="BankServiceTest (1)" project="banking.app" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="banking.test.BankServiceTest" time="2.151" displayname="BankServiceTest" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]">
-    <testcase name="testWithdrawInsufficientBalance" classname="banking.test.BankServiceTest" time="2.137" displayname="testWithdrawInsufficientBalance()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testWithdrawInsufficientBalance()]"/>
-    <testcase name="testDeposit" classname="banking.test.BankServiceTest" time="0.013" displayname="testDeposit()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testDeposit()]"/>
-  </testsuite>
-</testrun>

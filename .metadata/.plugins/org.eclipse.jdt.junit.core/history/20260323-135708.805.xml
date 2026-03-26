@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="BankServiceTest.testGetNonExistentAccount" project="banking.app" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="banking.test.BankServiceTest" time="0.042" displayname="BankServiceTest" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]">
-    <testcase name="testGetNonExistentAccount" classname="banking.test.BankServiceTest" time="0.042" displayname="testGetNonExistentAccount()" uniqueid="[engine:junit-jupiter]/[class:banking.test.BankServiceTest]/[method:testGetNonExistentAccount()]"/>
-  </testsuite>
-</testrun>
