@@ -5,18 +5,25 @@
     <meta charset="UTF-8">
     <title>TODO App</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     <h2>TODO App</h2>
-
     <div class="app">
-        <input type="text" id="todo-input" placeholder="Enter task">
+        <input type="text" id="todo-input" placeholder="Enter task" />
+        <input type="datetime-local" id="task-datetime">
+        <p id="error-msg" class="error"></p>
+        <div>
+            <input type="radio" name="priority" value="urgent"> Urgent
+            <input type="radio" name="priority" value="not-urgent" checked> Not Urgent
+        </div>
         <button class="add-btn" onclick="addTodo()">Add</button>
+        <button class="sort-btn" onclick="sortTodos()">Sort</button>
+
         <ul id="todo-list"></ul>
     </div>
+
+    <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 
 </html>
