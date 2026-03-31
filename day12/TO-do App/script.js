@@ -6,35 +6,35 @@ function saveTodos() {
 
 function addTodo() {
     const input = document.getElementById('todo-input');
-    const dateTimeInput = document.getElementById('task-datetime');
-    const priorityInput = document.querySelector('input[name="priority"]:checked');
-    const errorMsg = document.getElementById('error-msg');
+    const timeInput = document.getElementById('task-datetime'); 
+    const priorityInput = document.getElementById('task-priority');
 
     const text = input.value.trim();
-    const dateTime = dateTimeInput.value;
+    const time = timeInput.value;
+    const priority = priorityInput.value;
 
     if (text === '') {
-        errorMsg.innerText = "Task name is mandatory";
+        document.getElementById('error-msg').innerText = "Task cannot be empty!";
         input.classList.add('input-error');
         return;
     }
-    errorMsg.innerText = "";
-    input.classList.remove('input-error');
 
     todos.push({
         text,
-        dateTime,
-        priority: priorityInput.value,
-        completed: false
+        time,
+        priority,
+        completed: false,
+        createdAt: Date.now(),
+        completedAt: null
     });
 
     input.value = '';
-    dateTimeInput.value = '';
+    timeInput.value = '';
+    priorityInput.value = 'Low';
 
     saveTodos();
     renderTodos();
 }
-
 function deleteTodo(index) {
     todos.splice(index, 1);
     saveTodos();
@@ -59,25 +59,22 @@ function renderTodos() {
 
     todos.forEach((todo, index) => {
         const li = document.createElement('li');
+        const priorityClass = todo.priority.toLowerCase();
+        const priorityText = `<span class="${priorityClass}">(${todo.priority})</span>`;
 
-        const timeDisplay = todo.time ? `${todo.time}` : '';
-        const dateTimeDisplay = todo.dateTime
-            ? `${new Date(todo.dateTime).toLocaleString()}`
+        const timeDisplay = todo.time
+            ? new Date(todo.time).toLocaleString()
             : '';
-        const priorityDisplay = todo.priority === 'urgent' ? 'Urgent' : 'Not Urgent';
-
-        li.innerHTML = `
+            li.innerHTML = `
             <span class="${todo.completed ? 'completed' : ''}">
-                ${todo.text}
+            ${todo.text} ${priorityText}
             </span>
             <div class="right-section">
-                <small class="time-text">${timeDisplay}</small>
-                <small class="time-text">${dateTimeDisplay}</small>
-                <small class="priority-text">${priorityDisplay}</small>
-                <button class="complete-btn" onclick="toggleCompleted(${index})">✔</button>
-                <button class="delete-btn" onclick="deleteTodo(${index})">✖</button>
+            <small class="time-text">${timeDisplay}</small>
+            <button class="complete-btn" onclick="toggleCompleted(${index})">✔</button>
+            <button class="delete-btn" onclick="deleteTodo(${index})">✖</button>
             </div>
-        `;
+            `;
 
         list.appendChild(li);
     });

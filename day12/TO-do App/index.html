@@ -13,10 +13,11 @@
         <input type="text" id="todo-input" placeholder="Enter task" />
         <input type="datetime-local" id="task-datetime">
         <p id="error-msg" class="error"></p>
-        <div>
-            <input type="radio" name="priority" value="urgent"> Urgent
-            <input type="radio" name="priority" value="not-urgent" checked> Not Urgent
-        </div>
+        <select id="task-priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
         <button class="add-btn" onclick="addTodo()">Add</button>
         <button class="sort-btn" onclick="sortTodos()">Sort</button>
 

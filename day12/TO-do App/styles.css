@@ -79,3 +79,15 @@ li {
 .input-error {
     border: 1px solid red;
 }
+.high {
+    color: red;
+    font-weight: bold;
+}
+
+.medium {
+    color: orange;
+}
+
+.low {
+    color: green;
+}
