@@ -28,16 +28,16 @@ exports.createNote = async (req, res) => {
     const newNote = {
         id: Date.now(),
         title,
-        content
+        content,
+        status: 'created',
+        createdAt: new Date().toISOString()
     };
 
     notes.push(newNote);
-
     await service.saveNotes(notes);
 
     res.status(201).json(newNote);
 };
-
 
 exports.deleteNote = async (req, res) => {
     const notes = await service.getNotes();
@@ -52,4 +52,27 @@ exports.deleteNote = async (req, res) => {
     await service.saveNotes(filtered);
 
     res.json({ message: 'Deleted successfully' });
+};
+
+exports.updateNote = async (req, res) => {
+    const id = Number(req.params.id);
+    const { title, content } = req.body;
+
+    const notes = await service.getNotes();
+    const noteIndex = notes.findIndex(n => n.id === id);
+
+    if (!title && !content) {
+        return res.status(400).json({ error: 'No data provided to update' });
+    }
+    if (noteIndex === -1) {
+        return res.status(404).json({ error: 'Note not found' });
+    }
+    if (title !== undefined) notes[noteIndex].title = title;
+    if (content !== undefined) notes[noteIndex].content = content;
+
+    notes[noteIndex].status = 'updated';
+
+    await service.saveNotes(notes);
+
+    res.status(200).json({ message: 'Updated successfully' });
 };
