@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.card {
+  width: 700px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.col {
+  flex: 1;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.toggle {
+  margin: 10px 0;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}

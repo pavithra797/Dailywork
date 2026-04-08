@@ -1,0 +1,22 @@
+[
+  {
+    "questionId": 1,
+    "question": "What is your pet's name?"
+  },
+  {
+    "questionId": 2,
+    "question": "What is your favorite color?"
+  },
+  {
+    "questionId": 3,
+    "question": "What is your birthplace?"
+  },
+  {
+    "questionId": 4,
+    "question": "What is your school name?"
+  },
+  {
+    "questionId": 5,
+    "question":"What is your bestfriend name?"
+  }
+]
