@@ -47,3 +47,8 @@
   border: none;
   border-radius: 5px;
 }
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}

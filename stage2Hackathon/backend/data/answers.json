@@ -53,5 +53,32 @@
       "answer": "megha",
       "confirmAnswer": "megha"
     }
+  ],
+  [
+    {
+      "question": "What is your pet's name?",
+      "answer": "leoreo",
+      "confirmAnswer": "leoreo"
+    },
+    {
+      "question": "What is your favorite color?",
+      "answer": "pinkk",
+      "confirmAnswer": "pinkk"
+    },
+    {
+      "question": "What is your birthplace?",
+      "answer": "mandya",
+      "confirmAnswer": "mandya"
+    },
+    {
+      "question": "What is your school name?",
+      "answer": "sj bgs",
+      "confirmAnswer": "sj bgs"
+    },
+    {
+      "question": "What is your bestfriend name?",
+      "answer": "megha",
+      "confirmAnswer": "megha"
+    }
   ]
 ]

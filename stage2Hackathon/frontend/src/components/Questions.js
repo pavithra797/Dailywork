@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-function Question({ questions, hideAnswers, onChange }) {
+function Question({ questions, hideAnswers, onChange, allData }) {
+
     const [form, setForm] = useState({
         question: "",
         answer: "",
@@ -8,32 +9,47 @@ function Question({ questions, hideAnswers, onChange }) {
     });
 
     const [errors, setErrors] = useState({});
+    const [touched, setTouched] = useState({});
 
     const validate = (data) => {
         let err = {};
 
         if (!data.question) {
-            err.question = "Answer is Required";
+            err.question = "Question is required";
         }
 
         if (!data.answer) {
-            err.answer = "Answer is Required";
+            err.answer = "Answer is required";
+        } else if (!data.answer.trim()) {
+            err.answer = "Answer cannot be empty spaces";
         } else if (data.answer.length < 5) {
-            err.answer = "Min 5 chars";
+            err.answer = "Minimum 5 characters";
+        } else if (data.answer.length > 20) {
+            err.answer = "Maximum 20 characters allowed";
         }
 
-        if (data.confirmAnswer && data.answer !== data.confirmAnswer) {
-            err.confirmAnswer = "Not match";
+        if (!data.confirmAnswer) {
+            err.confirmAnswer = "Confirm answer is required";
+        } else if (data.answer !== data.confirmAnswer) {
+            err.confirmAnswer = "Answers do not match";
         }
 
-        setErrors(err);
+        return err;
     };
 
     const handleChange = (field, value) => {
-        const updated = { ...form, [field]: value };
-        setForm(updated);
-        validate(updated);
-        onChange(updated);
+        const newForm = { ...form, [field]: value };
+
+        setForm(newForm);
+
+        setTouched({ ...touched, [field]: true });
+
+        const newErrors = validate(newForm);
+        setErrors(newErrors);
+
+        if (onChange) {
+            onChange(newForm);
+        }
     };
 
     return (
@@ -44,18 +60,31 @@ function Question({ questions, hideAnswers, onChange }) {
                     className="input"
                     value={form.question}
                     onChange={(e) => handleChange("question", e.target.value)}
+                    onBlur={() => setTouched({ ...touched, question: true })}
                 >
-                    <option value="">Select Question</option>
+                    <option value="">Please select a Question</option>
 
-                    {Array.isArray(questions) &&
-                        questions.map((q) => (
+                    {(questions || [])
+                        .filter((q) => {
+                            const selectedQuestions = (allData || [])
+                                .map((item) => item?.question)
+                                .filter(Boolean);
+
+                            return (
+                                !selectedQuestions.includes(q.question) ||
+                                q.question === form.question
+                            );
+                        })
+                        .map((q) => (
                             <option key={q.questionId} value={q.question}>
                                 {q.question}
                             </option>
                         ))}
                 </select>
 
-                {errors.question && <p className="error">{errors.question}</p>}
+                {touched.question && errors.question && (
+                    <p style={{ color: "red" }}>{errors.question}</p>
+                )}
             </div>
 
             <div className="col">
@@ -66,7 +95,9 @@ function Question({ questions, hideAnswers, onChange }) {
                     value={form.answer}
                     onChange={(e) => handleChange("answer", e.target.value)}
                 />
-                {errors.answer && <p className="error">{errors.answer}</p>}
+                {touched.answer && errors.answer && (
+                    <p style={{ color: "red" }}>{errors.answer}</p>
+                )}
             </div>
 
             <div className="col">
@@ -75,10 +106,14 @@ function Question({ questions, hideAnswers, onChange }) {
                     type={hideAnswers ? "password" : "text"}
                     placeholder="Confirm Answer"
                     value={form.confirmAnswer}
-                    onChange={(e) => handleChange("confirmAnswer", e.target.value)}
+                    maxLength={20}
+                    onChange={(e) =>
+                        handleChange("confirmAnswer", e.target.value)
+                    }
                 />
-                {errors.confirmAnswer && (
-                    <p className="error">{errors.confirmAnswer}</p>
+
+                {touched.confirmAnswer && errors.confirmAnswer && (
+                    <p style={{ color: "red" }}>{errors.confirmAnswer}</p>
                 )}
             </div>
 

@@ -72,6 +72,17 @@ function App() {
       setErrorMsg("Something went wrong ");
     }
   };
+  const isFormValid = allData.every((q) => {
+    return (
+      q.question &&
+      q.answer &&
+      q.confirmAnswer &&
+      q.answer.trim() !== "" &&
+      q.answer.length >= 5 &&
+      q.answer.length <= 20 &&
+      q.answer === q.confirmAnswer
+    );
+  });
 
   return (
     <div className="container">
@@ -87,6 +98,7 @@ function App() {
             questions={questions}
             hideAnswers={hideAnswers}
             onChange={(data) => updateData(index, data)}
+            allData={allData}
           />
         ))}
 
@@ -95,8 +107,11 @@ function App() {
           setHideAnswers={setHideAnswers}
         />
 
-        <button className="submit-btn" onClick={handleSubmit}>
-          Update
+        <button
+          className="submit-btn"
+          onClick={handleSubmit}
+          disabled={!isFormValid}>
+          Submit
         </button>
       </div>
     </div>
