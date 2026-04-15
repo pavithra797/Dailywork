@@ -2,11 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Noteform({ addNote }) {
+function Noteform() {
+
     const [note, setNote] = useState({
         title: "",
         content: "",
-        status: "open",
+        status: "CREATED",
+        date: "",
         time: ""
     });
 
@@ -20,24 +22,28 @@ function Noteform({ addNote }) {
             setError("Title and Content are required");
             return;
         }
-        addNote(note);
-        sendPostRequest(note);
 
-        setNote({
-            title: "",
-            content: "",
-            status: "open",
-            time: "",
-            date: ""
-        });
+        if (!note.date || !note.time) {
+            setError("Date and Time are required");
+            return;
+        }
 
-        setError("");
-        navigate("/");
-        navigate("/list");
+        const newNote = {
+            title: note.title,
+            content: note.content,
+            status: note.status,
+            created_at: formatDate(note.date, note.time) 
+        };
+
+        console.log("Sending:", newNote);
+
+        axios.post("http://localhost:8080/notes", newNote)
+            .then(() => navigate("/list"))
+            .catch(err => console.error(err));
     };
 
-    const sendPostRequest = (note) => {
-        axios.post("http://localhost:3001/notes", note);
+    const formatDate = (date, time) => {
+        return new Date(`${date}T${time}`).toISOString(); 
     };
 
     return (
@@ -65,33 +71,33 @@ function Noteform({ addNote }) {
             <label>
                 <input
                     type="checkbox"
-                    checked={note.status === "closed"}
+                    checked={note.status === "CLOSED"}
                     onChange={(e) =>
                         setNote({
                             ...note,
-                            status: e.target.checked ? "closed" : "open"
+                            status: e.target.checked ? "CLOSED" : "CREATED"
                         })
                     }
                 />
                 Status
             </label>
 
-            <div style={{ display: "flex", gap: "5px" }}>
-                <input
-                    type="date"
-                    value={note.date}
-                    onChange={(e) =>
-                        setNote({ ...note, date: e.target.value })
-                    }
-                />
-                <input
-                    type="time"
-                    value={note.time}
-                    onChange={(e) =>
-                        setNote({ ...note, time: e.target.value })
-                    }
-                />
-            </div>
+            <input
+                type="date"
+                value={note.date}
+                onChange={(e) =>
+                    setNote({ ...note, date: e.target.value })
+                }
+            />
+
+            <input
+                type="time"
+                value={note.time}
+                onChange={(e) =>
+                    setNote({ ...note, time: e.target.value })
+                }
+            />
+
             <button type="submit">Add</button>
         </form>
     );

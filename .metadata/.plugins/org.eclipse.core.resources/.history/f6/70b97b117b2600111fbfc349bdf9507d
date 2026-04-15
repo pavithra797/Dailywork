@@ -1,5 +1,0 @@
-package banking.exception;
-
-public class BankingException {
-
-}

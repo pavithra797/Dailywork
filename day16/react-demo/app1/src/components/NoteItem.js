@@ -1,15 +1,21 @@
-function NoteItem({ note, deleteNote, toggleStatus }) {
+function NoteItem({ note }) {
+
+    const formatDate = (date) => {
+        if (!date) return "";
+        return new Date(date).toLocaleString("en-IN", {
+            dateStyle: "medium",
+            timeStyle: "short"
+        });
+    };
+
     return (
         <li>
-            <input
-                type="checkbox"
-                checked={note.status === "closed"}
-                onChange={() => toggleStatus(note.id)}
-            />
             <span>
-                {note.title} (Status: {note.status}) {note.date} {note.time}
+                <strong>{note.title}</strong> <br />
+                {note.content} <br />
+                Status: {note.status} <br />
+                {formatDate(note.created_at)} 
             </span>
-            <button onClick={() => deleteNote(note.id)}>Delete</button>
         </li>
     );
 }

@@ -1,22 +1,31 @@
 package com.example.demo.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Note;
+import com.example.demo.repositories.NotesRepository;
+
+import jakarta.validation.Valid;
+
 @Service
 public class NotesService {
-	
-	public Note getNotes() {
-		Note note = new Note();
-		note.setId(1234);
-		note.setTitle("Test Note Title");
-		note.setContent("Test note content");
-		return note;
-	}
-	
-	public void setNote(Note note) {
-		System.out.println(note.getId());
-		System.out.println(note.getTitle());
-	}
 
+    @Autowired
+    private NotesRepository notesRepository;
+
+    public Iterable<Note> getNotes() {
+        System.out.println("inside service");   
+        return notesRepository.findAll();
+    }
+
+    public void createNote(Note note) {
+        System.out.println("inside createNote");   
+        notesRepository.save(note);
+    }
+
+    public Integer addNote(@Valid Note note) {
+        System.out.println("inside addNote");   
+        return 1;
+    }
 }
